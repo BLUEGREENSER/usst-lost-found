@@ -1,0 +1,17 @@
+services:
+  # Flask 后端 API 服务
+  - type: web
+    name: usst-lost-found-api
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app --bind 0.0.0.0:10000 --workers 2 --timeout 120
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        value: usst-lost-found-secret-key-2026
+      - key: JWT_SECRET_KEY
+        value: jwt-secret-usst-2026
+      - key: PYTHON_VERSION
+        value: 3.11.0

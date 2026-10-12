@@ -5,3 +5,4 @@ PyJWT==2.8.0
 Werkzeug==3.0.1
 jieba==0.42.1
 pytest==7.4.4
+gunicorn==21.2.0
