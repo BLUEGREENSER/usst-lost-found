@@ -34,6 +34,8 @@ def create_app(config_class=None):
 
 
 def _auto_init_db(app):
+    # 导入 models 包触发所有表注册到 SQLAlchemy metadata
+    import models  # noqa: F401
     db.create_all()
     from models.user import User
     from utils.security import hash_password
