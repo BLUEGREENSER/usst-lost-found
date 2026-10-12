@@ -11,7 +11,7 @@
       <div class="info-row" v-if="item.custody"><span class="label">保管：</span>{{ item.custody }}</div>
     </div>
     <div class="images" v-if="item.image_urls && item.image_urls.length">
-      <el-image v-for="(url, i) in item.image_urls.slice(0, 3)" :key="i" :src="url" class="thumb" fit="cover" />
+      <el-image v-for="(url, i) in item.image_urls.slice(0, 3)" :key="i" :src="resolveImageUrl(url)" class="thumb" fit="cover" />
     </div>
   </el-card>
 </template>
@@ -19,6 +19,7 @@
 <script setup>
 import { computed } from 'vue'
 import StatusTag from './StatusTag.vue'
+import { resolveImageUrl } from '../api/config'
 
 const props = defineProps({ item: Object })
 defineEmits(['click'])

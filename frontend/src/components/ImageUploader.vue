@@ -19,6 +19,7 @@
 import { ref, computed, watch } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
+import { API_BASE, resolveImageUrl } from '../api/config'
 
 const props = defineProps({
   modelValue: { type: Array, default: () => [] },
@@ -27,14 +28,14 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
-const uploadAction = '/api/v1/upload/image'
+const uploadAction = API_BASE + '/api/v1/upload/image'
 const uploadHeaders = computed(() => ({
   Authorization: `Bearer ${localStorage.getItem('token') || ''}`,
 }))
 const fileList = ref([])
 
 watch(() => props.modelValue, (urls) => {
-  fileList.value = (urls || []).map((url, i) => ({ name: `image-${i}`, url }))
+  fileList.value = (urls || []).map((url, i) => ({ name: `image-${i}`, url: resolveImageUrl(url) }))
 }, { immediate: true })
 
 const beforeUpload = (file) => {
