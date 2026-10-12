@@ -36,7 +36,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // GitHub Pages 部署在子路径下时需设置 base；本地开发默认 '/'
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
