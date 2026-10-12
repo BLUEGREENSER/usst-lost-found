@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   { path: '/login', name: 'Login', component: () => import('../views/auth/Login.vue'), meta: { guest: true } },
@@ -36,8 +36,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  // GitHub Pages 部署在子路径下时需设置 base；本地开发默认 '/'
-  history: createWebHistory(import.meta.env.BASE_URL),
+  // 使用 hash 模式：GitHub Pages 等静态托管下，刷新/子路径访问不会 404
+  history: createWebHashHistory(),
   routes,
 })
 
