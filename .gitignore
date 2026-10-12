@@ -1,0 +1,29 @@
+# 依赖
+node_modules/
+__pycache__/
+*.pyc
+
+# 数据库和运行时数据
+backend/instance/*.db
+backend/instance/*.sqlite3
+backend/static/uploads/*
+!backend/static/uploads/.gitkeep
+
+# 日志
+backend/logs/*.log
+
+# 构建产物
+frontend/dist/
+backend/static/dist/
+
+# 开发工具缓存
+.codeartsdoer/
+.arts/
+.merkle-snapshot.json
+*.log
+
+# 系统和编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
