@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, request
 from config.development import DevelopmentConfig
 from extensions.db import db
 from utils.logger import setup_logger
@@ -29,8 +29,29 @@ def create_app(config_class=None):
     _register_blueprints(app)
     _register_error_handlers(app)
     _register_health(app)
+    _register_cors(app)
 
     return app
+
+
+def _register_cors(app):
+    """跨域支持：允许 GitHub Pages 前端访问后端 API"""
+    @app.after_request
+    def add_cors_headers(resp):
+        origin = request.headers.get("Origin")
+        # 允许任何来源（演示用途）；生产环境可限制为具体域名
+        resp.headers["Access-Control-Allow-Origin"] = origin or "*"
+        resp.headers["Access-Control-Allow-Credentials"] = "true"
+        resp.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+        resp.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        resp.headers["Access-Control-Max-Age"] = "86400"
+        return resp
+
+    @app.before_request
+    def handle_preflight():
+        if request.method == "OPTIONS":
+            resp = app.make_default_options_response()
+            return resp
 
 
 def _auto_init_db(app):
