@@ -3,7 +3,8 @@ import { ElMessage } from 'element-plus'
 import router from '../router'
 
 const request = axios.create({
-  baseURL: '/api/v1',
+  // 后端 API 地址：可通过环境变量 VITE_API_BASE 覆盖（用于公网后端），默认同源
+  baseURL: import.meta.env.VITE_API_BASE || '/api/v1',
   timeout: 10000,
 })
 
